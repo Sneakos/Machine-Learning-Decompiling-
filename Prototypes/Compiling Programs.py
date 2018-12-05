@@ -1,7 +1,9 @@
 import os
 
+# change this to the directory you're running the script in 
 base_directory = "C:\\Users\\User\\Desktop\\Small C Dataset\\"
 
+#Change to the path for the compilers you are using
 gcc_path = "C:\\MinGW\\bin\\gcc.exe "
 vs_x86_path = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.15.26726\\bin\\Hostx86\\x86\\cl.exe"
 
