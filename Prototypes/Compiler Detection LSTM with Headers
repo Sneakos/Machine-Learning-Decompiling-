@@ -1,0 +1,84 @@
+import pefile
+import os
+import numpy as np
+import random
+from keras.layers import CuDNNLSTM, Embedding, Dropout, Dense
+from keras import Sequential
+
+dir_class_0 = 'C:\\Users\\Herbie\\Desktop\\Machine Learning On Executables\\Mass Compiler\\Clang Executables'
+dir_class_1 = 'C:\\Users\\Herbie\\Desktop\\Machine Learning On Executables\\Mass Compiler\\GCC Executables'
+
+data_set_len = len(os.listdir(dir_class_0)) + len(os.listdir(dir_class_1))
+
+data_set = np.zeros((data_set_len, 1024))
+labels = []
+
+for i, exe in enumerate(os.listdir(dir_class_0)):
+	pe = pefile.PE(dir_class_0 + '\\' + exe)
+	h = []
+	for b in pe.header:
+		# h.append(b / 255.0)
+		h.append((b))
+
+	h = np.reshape(h, (1024))
+	data_set[i] = h
+	labels.append(0)
+
+base = len(os.listdir(dir_class_0))
+
+for i, exe in enumerate(os.listdir(dir_class_1)):
+	pe = pefile.PE(dir_class_1 + '\\' + exe)
+	h = []
+	for b in pe.header:
+		# h.append(b / 255.0)
+		h.append(b)
+
+	h = np.reshape(h, (1024))
+	data_set[i + base] = h
+	labels.append(1)
+
+shuffle_index = []
+for i in range(data_set_len):
+	shuffle_index.append(i)
+
+random.shuffle(shuffle_index)
+
+
+shuffle_lables = []
+shuffle_data = np.zeros((data_set_len, 1024))
+for i, index in enumerate(shuffle_index):
+	shuffle_lables.append(labels[shuffle_index[i]])
+	shuffle_data[i] = data_set[shuffle_index[i]]
+
+print(shuffle_data)
+print(shuffle_lables)
+
+print(shuffle_data.shape)
+
+# model = Sequential()
+# model.add(Dense(16, activation='relu', input_dim=1024))
+#
+# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['binary_accuracy'])
+# model.summary()
+#
+# model.fit(x=data_set, epochs=5)
+
+model = Sequential()
+
+model.add(Embedding(256, 128))
+model.add(CuDNNLSTM(128))
+# model.add(Dropout(0.2))
+# model.add(CuDNNLSTM(64))
+
+# model.add(CuDNNLSTM(128, input_shape=(1024, 1), return_sequences=True))
+# model.add(CuDNNLSTM(128))
+# model.add(CuDNNLSTM(256, input_shape=(1024, 1)))
+
+# model.add(Dropout(0.2))
+model.add(Dense(1, activation='sigmoid'))
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['binary_accuracy'])
+
+model.summary()
+model.fit(shuffle_data, shuffle_lables, epochs=100, batch_size=15)
+model.save('attempt_1.h5')
