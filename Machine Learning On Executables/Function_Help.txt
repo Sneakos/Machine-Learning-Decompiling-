@@ -1,0 +1,7 @@
++---------------------------- -----------------Help------------------------------------------------+
+|  -strip text - Specify a directory of executables to remove the.text section.                    |
+|  -mass compile - Specify a directory of .c files to compile using one or more compilers          |
+|  -detect compiler - specify the path to an exe, predicts where it was compiled with GCC or clang |
+|  -clear - clear the screen                                                                       |
+|  -help                                                                                           |
++--------------------------------------------------------------------------------------------------+
