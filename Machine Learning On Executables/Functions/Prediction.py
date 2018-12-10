@@ -21,4 +21,4 @@ def predict_compiler(exe_path):
 	elif d[0][0] < .3:
 		print('This exe is clang - (confidence: ' + str(1 - d[0][0]) + ')')
 	else:
-		print()
+		print('This compiler is unknown (' + str(d[0][0]) + ')' )
