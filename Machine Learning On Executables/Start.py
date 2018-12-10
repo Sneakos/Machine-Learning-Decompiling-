@@ -53,9 +53,12 @@ while cmd not in exit_commands:
 		help_file.close()
 
 	elif cmd in exit_commands:
-		# strip_text_directory('C:\\Users\\Herbie\\Desktop\\Machine Learning On Executables\\Mass Compiler\\Clang Executables')
 		pass
 
 	else:
-		# clear_function()
 		print("[!] Unknown Command")
+		help_file = open('Function_Help.txt', 'r+')
+		for l in help_file.readlines():
+			print(l, end='')
+
+		help_file.close()
