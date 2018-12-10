@@ -12,7 +12,7 @@ def predict_compiler(exe_path):
 
 	h = np.reshape(h, (1, 1024))
 
-	model = load_model('ML Models\\Binary Classification\\Compiler Prediction.h5')
+	model = load_model(..\\'ML Models\\Binary Classification\\Compiler Prediction.h5')
 
 	d = model.predict(h)
 
