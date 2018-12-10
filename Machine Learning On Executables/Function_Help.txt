@@ -4,4 +4,5 @@
 |  -detect compiler - specify the path to an exe, predicts where it was compiled with GCC or clang |
 |  -clear - clear the screen                                                                       |
 |  -help                                                                                           |
+|  -quit                                                                                           |
 +--------------------------------------------------------------------------------------------------+
